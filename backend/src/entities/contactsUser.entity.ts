@@ -1,9 +1,8 @@
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Exclude } from "class-transformer";
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
+import { User } from "./user.entity";
 
-import { User } from "./users.entity";
-
-@Entity("contacts")
+@Entity()
 export class ContactsUser {
   @PrimaryGeneratedColumn("uuid")
   @Exclude()
@@ -12,13 +11,10 @@ export class ContactsUser {
   @Column()
   email: string;
 
-  @Column({ type: "varchar", length: 50 })
-  name: string;
+  @Column()
+  telephone: string;
 
-  @Column({ type: "varchar", length: 20 })
-  phone: string;
-
-  @ManyToOne(() => User, (user) => user.contacts, {
+  @ManyToOne((type) => User, (user) => user.contacts, {
     onDelete: "CASCADE",
   })
   user: User;

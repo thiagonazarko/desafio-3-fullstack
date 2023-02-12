@@ -1,4 +1,4 @@
-import { IContact } from "../contacts";
+import { IContact } from "../contact";
 
 export interface IClientRequest {
   full_name: string;

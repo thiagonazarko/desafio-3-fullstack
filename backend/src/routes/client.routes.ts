@@ -1,17 +1,19 @@
 import { Router } from "express";
-import { createClientController } from "../controllers/client/createClient.controller";
-import { deleteClientController } from "../controllers/client/deleteClient.controller";
-import { getClientController } from "../controllers/client/getClient.controller";
-import { updateClientController } from "../controllers/client/updateClient.controller";
-import userAuthTokenMiddleware from "../middlewares/userAuthToken.middleware";
+import {
+  createClientController,
+  deleteClientController,
+  getClientController,
+  updateClientController,
+} from "../controllers/client/index.controller";
+import { verifyAuthTokenMiddleware } from "../middlewares/verifyAuthToken.middleware";
 
-const routes = Router();
+export const clientRouter = Router();
 
-export const clientRoutes = () => {
-  routes.post("/:id_client", userAuthTokenMiddleware, createClientController);
-  routes.get("", userAuthTokenMiddleware, getClientController);
-  routes.delete("/:id", userAuthTokenMiddleware, deleteClientController);
-  routes.patch("/:id", userAuthTokenMiddleware, updateClientController);
-
-  return routes;
-};
+clientRouter.post(
+  "/:id_client",
+  verifyAuthTokenMiddleware,
+  createClientController
+);
+clientRouter.get("", verifyAuthTokenMiddleware, getClientController);
+clientRouter.delete("/:id", verifyAuthTokenMiddleware, deleteClientController);
+clientRouter.patch("/:id", verifyAuthTokenMiddleware, updateClientController);

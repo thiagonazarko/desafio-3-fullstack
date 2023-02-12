@@ -1,6 +1,6 @@
-import { AppDataSource } from "../../../data-source";
+import AppDataSource from "../../data-source";
 import { IClientUpdate } from "../../interfaces/client";
-import { AppError } from "../../errors/appError";
+import { AppError } from "../../errors/AppError";
 import { Client } from "../../entities/client.entity";
 
 export const updateClientService = async (
@@ -12,7 +12,7 @@ export const updateClientService = async (
   const clientFind = await clientRepository.findOneBy({ id: id });
 
   if (!clientFind) {
-    throw new AppError(404, "Client do not exists.");
+    throw new AppError("Client not exists", 404);
   }
 
   await clientRepository.update(id, { full_name: full_name });

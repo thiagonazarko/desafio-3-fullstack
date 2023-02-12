@@ -1,38 +1,16 @@
 import { Router } from "express";
-import userCreateController from "../controllers/users/userCreate.controller";
-import userDeleteController from "../controllers/users/userDelete.controller";
-import userListController from "../controllers/users/userList.controller";
-import userUpdateController from "../controllers/users/userUpdate.controller";
-import isOwnerMiddleware from "../middlewares/isOwner.middleware";
-import userAuthTokenMiddleware from "../middlewares/userAuthToken.middleware";
 import {
-  userCreateSchema,
-  userCreateValidated,
-} from "../middlewares/userCreateValidated.middleware";
-import verifyEmailMiddleware from "../middlewares/verifyEmail.middleware";
+  createUserController,
+  deleteUserController,
+  getUserController,
+  updateUserController,
+} from "../controllers/user/index.controller";
+import { verifyAuthTokenMiddleware } from "../middlewares/verifyAuthToken.middleware";
+import { verifyUsernameMiddleware } from "../middlewares/verifyUsername.middleware";
 
-const routes = Router();
+export const userRouter = Router();
 
-export const userRoutes = () => {
-  routes.post(
-    "",
-    verifyEmailMiddleware,
-    userCreateValidated(userCreateSchema),
-    userCreateController
-  );
-  routes.get("", userAuthTokenMiddleware, userListController);
-  routes.patch(
-    "/:id",
-    userAuthTokenMiddleware,
-    isOwnerMiddleware,
-    userUpdateController
-  );
-  routes.delete(
-    "/:id",
-    userAuthTokenMiddleware,
-    isOwnerMiddleware,
-    userDeleteController
-  );
-
-  return routes;
-};
+userRouter.post("", verifyUsernameMiddleware, createUserController);
+userRouter.get("", verifyAuthTokenMiddleware, getUserController);
+userRouter.delete("/:id", verifyAuthTokenMiddleware, deleteUserController);
+userRouter.patch("/:id", verifyAuthTokenMiddleware, updateUserController);

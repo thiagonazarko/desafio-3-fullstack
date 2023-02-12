@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import "dotenv/config";
-import { AppDataSource } from "../../data-source";
+import { AppDataSource } from "../data-source";
 import { User } from "../entities/users.entity";
 
 const isOwnerMiddleware = async (

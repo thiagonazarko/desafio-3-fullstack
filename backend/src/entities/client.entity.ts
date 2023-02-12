@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { ContactsClient } from "./contactsClient.entity";
-import { User } from "./users.entity";
+import { User } from "./user.entity";
 
 @Entity()
 export class Client {
@@ -16,7 +16,7 @@ export class Client {
   @Column()
   full_name: string;
 
-  @ManyToOne(() => User, (user) => user.client, {
+  @ManyToOne((type) => User, (user) => user.client, {
     onDelete: "CASCADE",
   })
   user: User;

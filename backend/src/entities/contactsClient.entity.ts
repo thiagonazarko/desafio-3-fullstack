@@ -12,10 +12,7 @@ export class ContactsClient {
   email: string;
 
   @Column()
-  name: string;
-
-  @Column()
-  phone: string;
+  telephone: string;
 
   @ManyToOne(() => Client, (client) => client.contact, {
     onDelete: "CASCADE",
